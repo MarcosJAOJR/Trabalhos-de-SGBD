@@ -2,7 +2,7 @@ package trabalho2;
 
 public abstract class Evento {
 	
-	public void TR_Begin(Grafo grafo) {
+	public static void TR_Begin(Grafo grafo) {
 		
 		Transacao newTransacao = new Transacao(grafo.transacoes.size());
 		
@@ -13,7 +13,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean READ(Grafo grafo, Transacao pTransacao) {
+	public static boolean READ(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
@@ -34,7 +34,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean WRITE(Grafo grafo, Transacao pTransacao) {
+	public static boolean WRITE(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
@@ -55,7 +55,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean TR_Terminate(Grafo grafo, Transacao pTransacao) {
+	public static boolean TR_Terminate(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Processo_Efetivacao);
@@ -70,7 +70,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean TR_Rollback(Grafo grafo, Transacao pTransacao) {
+	public static boolean TR_Rollback(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Processo_Cancelamento);
@@ -91,7 +91,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean TR_Commit(Grafo grafo, Transacao pTransacao) {
+	public static boolean TR_Commit(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Efetivada);
@@ -106,7 +106,7 @@ public abstract class Evento {
 		
 	}
 	
-	public boolean TR_Finish(Grafo grafo, Transacao pTransacao) {
+	public static boolean TR_Finish(Grafo grafo, Transacao pTransacao) {
 		
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.TR_Finalizada);
@@ -127,12 +127,12 @@ public abstract class Evento {
 		
 	}
 	
-	private No buscarNo(No noRaiz, EstadosEnum estadoDesejado) {
+	private static No buscarNo(No noRaiz, EstadosEnum estadoDesejado) {
 		
 		No retorno = new No(estadoDesejado);
 		
 		// TODO: Se achou o nó desejado, retorna ele
-		// TODO: Senão, cria um novo com o estadoDesejado e retorna ele
+		
 		
 		return retorno;
 	}
