@@ -7,29 +7,11 @@ import java.util.Scanner;
 
 public class Grafo {
 	
-	public static No noRaiz;
-	public static No n1;
-	public static No n2;
-	public static No n3;
-	public static No n4;
-	public static No n5;
-	ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+	public No noRaiz;
+	static ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
 	
 	Grafo() {
 		this.noRaiz = new No(EstadosEnum.TR_Iniciada);
-		n1 = new No(EstadosEnum.Ativa);
-		n2 = new No(EstadosEnum.Processo_Efetivacao);
-		n3 = new No(EstadosEnum.Processo_Cancelamento);
-		n4 = new No(EstadosEnum.Efetivada);
-		n5 = new No(EstadosEnum.TR_Finalizada);
-		
-		noRaiz.adicionaVizinho(n1);
-		n1.adicionaVizinho(n2);
-		n1.adicionaVizinho(n3);
-		n2.adicionaVizinho(n3);
-		n2.adicionaVizinho(n4);
-		n3.adicionaVizinho(n5);
-		n4.adicionaVizinho(n5);	
 	}
 	
 	public void adicionaTransacao(Transacao newTransacao) {
@@ -47,20 +29,20 @@ public class Grafo {
 		
 	}
 	
-	public static void imprimeTudo(Grafo grafo){
+	public void imprimeTudo(){
 		
 		Queue fila = new LinkedList();
 
-		   grafo.noRaiz.cor  = true;
-		   fila.add(grafo.noRaiz);
+		   this.noRaiz.cor  = true;
+		   fila.add(this.noRaiz);
 		   
-		   for(Transacao trans : grafo.noRaiz.lstTransacoes){
+		   for(Transacao trans : this.noRaiz.lstTransacoes){
 				System.out.println(""+ trans.nome + " = " + trans.estadoAtual +";");
 			}
 		   
 		   while(!fila.isEmpty()){
 			   No v = (No) fila.peek();
-			   for(No w : noRaiz.lstVizinhos){
+			   for(No w : v.lstVizinhos){
 				   if(!w.cor){
 					   for(Transacao trans : w.lstTransacoes){
 							System.out.println(""+ trans.nome + " = " + trans.estadoAtual +";");
@@ -82,7 +64,7 @@ public class Grafo {
 		   fila.add(noRaiz);
 		   while(!fila.isEmpty()){
 			   No v = (No) fila.peek();
-			   for(No w : noRaiz.lstVizinhos){
+			   for(No w : v.lstVizinhos){
 				   if(w.cor){
 					  fila.add(w);
 				   }
@@ -93,7 +75,8 @@ public class Grafo {
 	}
 	
 	public static void telaInicial(Grafo grafo, Scanner reader){
-		Transacao transacao;
+		Transacao transacao = new Transacao(0);
+		System.out.println("\n---------------------------");
 		System.out.println("Escolha a opção desejada:\n"
 				+ "1 - TR_Begin\n"
 				+ "2 - READ\n"
@@ -105,57 +88,52 @@ public class Grafo {
 		
 		int n = reader.nextInt();
 		
+		if(n == 2 || n == 3 || n == 4 || n == 5 || n == 6 || n == 7) {
+			
+			System.out.println("Digite o número da transação desejada.(Ex.: 0 ou 1 ou 2 ou ...)\n");
+			int nTransacao = reader.nextInt();
+			
+			if(nTransacao >= transacoes.size())
+				n = 0;
+			else
+				transacao = transacoes.get(nTransacao);
+		}
+		
 		switch(n){
 			case 1:
 				Evento.TR_Begin(grafo);
-				
-				imprimeTudo(grafo);
-				telaInicial(grafo, reader);			
-				
-			case 2:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
-				Evento.READ(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
-				//Grafo.noRaiz;
+			case 2:
+				Evento.READ(grafo, transacao);
+				grafo.imprimeTudo();
+				telaInicial(grafo, reader);
 			case 3:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
 				Evento.WRITE(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 4:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
 				Evento.TR_Terminate(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 5:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
 				Evento.TR_Rollback(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 6:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
 				Evento.TR_Commit(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 7:
-				System.out.println("Digite o número da transação desejada.(Ex.: 1 ou 12)\n");
-				n = reader.nextInt();
-				transacao = new Transacao(n);
 				Evento.TR_Finish(grafo, transacao);
-				imprimeTudo(grafo);
+				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
+			default:
+				System.out.println("> Opção ou transação inválida\n");
+				telaInicial(grafo, reader);
+				
 		}
+		
 	}
 
 }

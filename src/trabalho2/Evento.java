@@ -11,7 +11,7 @@ public abstract class Evento {
 		
 		grafo.adicionaTransacao(newTransacao);
 		
-		Grafo.noRaiz.adicionaTransacao(newTransacao);
+		grafo.noRaiz.adicionaTransacao(newTransacao);
 		
 	}
 	
@@ -21,7 +21,7 @@ public abstract class Evento {
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
 		
 		if(pTransacao.estadoAtual == EstadosEnum.TR_Iniciada) {
-			noOrigem = Grafo.noRaiz;
+			noOrigem = grafo.noRaiz;
 			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
@@ -40,7 +40,7 @@ public abstract class Evento {
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
 		
 		if(pTransacao.estadoAtual == EstadosEnum.TR_Iniciada) {
-			noOrigem = Grafo.noRaiz;
+			noOrigem = grafo.noRaiz;
 			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
@@ -109,8 +109,8 @@ public abstract class Evento {
 		No noOrigem;
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.TR_Finalizada);
 		
-		if(pTransacao.estadoAtual == EstadosEnum.Processo_Efetivacao) {
-			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.Processo_Efetivacao);
+		if(pTransacao.estadoAtual == EstadosEnum.Processo_Cancelamento) {
+			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.Processo_Cancelamento);
 			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
@@ -134,7 +134,7 @@ public abstract class Evento {
 		   fila.add(noRaiz);
 		   while(!fila.isEmpty()){
 			   No v = (No) fila.peek();
-			   for(No w : noRaiz.lstVizinhos){
+			   for(No w : v.lstVizinhos){
 				   if(w.ordemEstado == estadoDesejado){
 					   retorno = w;
 				   } else if(!w.cor){
@@ -146,6 +146,9 @@ public abstract class Evento {
 		   }
 		   
 		Grafo.inicializarCor(noRaiz);
+		
+		if(retorno == null)
+			retorno = new No(estadoDesejado);
 		   
 		return retorno;
 	}
