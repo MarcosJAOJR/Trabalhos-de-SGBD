@@ -1,5 +1,8 @@
 package trabalho2;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public abstract class Evento {
 	
 	public static void TR_Begin(Grafo grafo) {
@@ -8,8 +11,7 @@ public abstract class Evento {
 		
 		grafo.adicionaTransacao(newTransacao);
 		
-		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.TR_Iniciada);
-		noDestino.adicionaTransacao(newTransacao);
+		Grafo.noRaiz.adicionaTransacao(newTransacao);
 		
 	}
 	
@@ -130,10 +132,25 @@ public abstract class Evento {
 	private static No buscarNo(No noRaiz, EstadosEnum estadoDesejado) {
 		
 		No retorno = new No(estadoDesejado);
-		
-		// TODO: Se achou o nó desejado, retorna ele
-		
-		
+		Queue fila = new LinkedList();
+
+		   noRaiz.cor  = true;
+		   fila.add(noRaiz);
+		   while(!fila.isEmpty()){
+			   No v = (No) fila.peek();
+			   for(No w : noRaiz.lstVizinhos){
+				   if(w.ordemEstado == estadoDesejado){
+					   retorno = w;
+				   } else if(!w.cor){
+					   fila.add(w);
+				   }
+			   }
+			   v.cor = true;
+			   fila.remove(v);
+		   }
+		   
+		Grafo.inicializarCor(noRaiz);
+		   
 		return retorno;
 	}
 

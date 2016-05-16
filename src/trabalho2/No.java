@@ -7,6 +7,7 @@ public class No {
 	ArrayList<Transacao> lstTransacoes = new ArrayList<Transacao>();
 	EstadosEnum ordemEstado;
 	ArrayList<No> lstVizinhos = new ArrayList<No>();
+	boolean cor;
 	
 	No(EstadosEnum estado) {
 		this.ordemEstado = estado;
@@ -35,8 +36,6 @@ public class No {
 	}
 	
 	public void transferirTransacao(No noDestino, Transacao pTransacao) {
-		
-		lstVizinhos.contains(noDestino);
 		
 		this.removeTransacao(pTransacao);
 		noDestino.adicionaTransacao(pTransacao);
