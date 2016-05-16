@@ -51,10 +51,10 @@ public class Grafo {
 		
 		Queue fila = new LinkedList();
 
-		   noRaiz.cor  = true;
-		   fila.add(noRaiz);
+		   grafo.noRaiz.cor  = true;
+		   fila.add(grafo.noRaiz);
 		   
-		   for(Transacao trans : noRaiz.lstTransacoes){
+		   for(Transacao trans : grafo.noRaiz.lstTransacoes){
 				System.out.println(""+ trans.nome + " = " + trans.estadoAtual +";");
 			}
 		   
@@ -64,6 +64,7 @@ public class Grafo {
 				   if(!w.cor){
 					   for(Transacao trans : w.lstTransacoes){
 							System.out.println(""+ trans.nome + " = " + trans.estadoAtual +";");
+							w.cor = true;
 						}
 					   fila.add(w);
 				   }
@@ -79,7 +80,7 @@ public class Grafo {
 
 		   noRaiz.cor  = false;
 		   fila.add(noRaiz);
-		   while(fila.isEmpty()){
+		   while(!fila.isEmpty()){
 			   No v = (No) fila.peek();
 			   for(No w : noRaiz.lstVizinhos){
 				   if(w.cor){

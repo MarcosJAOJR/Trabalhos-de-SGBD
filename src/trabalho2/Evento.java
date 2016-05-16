@@ -21,14 +21,12 @@ public abstract class Evento {
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
 		
 		if(pTransacao.estadoAtual == EstadosEnum.TR_Iniciada) {
-			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.TR_Iniciada);
+			noOrigem = Grafo.noRaiz;
 			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
 		
 		if(pTransacao.estadoAtual == EstadosEnum.Ativa) {
-			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
-			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
 		
@@ -42,14 +40,12 @@ public abstract class Evento {
 		No noDestino = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
 		
 		if(pTransacao.estadoAtual == EstadosEnum.TR_Iniciada) {
-			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.TR_Iniciada);
+			noOrigem = Grafo.noRaiz;
 			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
 		
 		if(pTransacao.estadoAtual == EstadosEnum.Ativa) {
-			noOrigem = buscarNo(grafo.noRaiz, EstadosEnum.Ativa);
-			noOrigem.transferirTransacao(noDestino, pTransacao);
 			return true;
 		}
 		
@@ -131,7 +127,7 @@ public abstract class Evento {
 	
 	private static No buscarNo(No noRaiz, EstadosEnum estadoDesejado) {
 		
-		No retorno = new No(estadoDesejado);
+		No retorno = null;
 		Queue fila = new LinkedList();
 
 		   noRaiz.cor  = true;
