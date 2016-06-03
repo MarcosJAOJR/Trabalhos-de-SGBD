@@ -1,7 +1,6 @@
 package trabalho2;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public abstract class Evento {
 	
@@ -128,7 +127,7 @@ public abstract class Evento {
 	private static No buscarNo(No noRaiz, EstadosEnum estadoDesejado) {
 		
 		No retorno = null;
-		Queue fila = new LinkedList();
+		LinkedList<No> fila = new LinkedList<No>();
 
 		   noRaiz.cor  = true;
 		   fila.add(noRaiz);

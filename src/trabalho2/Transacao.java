@@ -5,7 +5,7 @@ public class Transacao {
 	String nome;
 	EstadosEnum estadoAtual;
 	
-	Transacao(int i) {
+	public Transacao(int i) {
 		this.nome = "T"+i;
 		estadoAtual = EstadosEnum.TR_Iniciada;
 	}
