@@ -1,24 +1,27 @@
 package trabalho3;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+
+import trabalho2.Transacao;
 
 public class Lock_Table {
 	
-	private HashMap<String,String> lockTable = new HashMap<String,String>();
-    
-	public Lock_Table() {
-		// Adicionar DataItem
-		this.lockTable.put("x","LS");
-		this.lockTable.put("y","LX");
-		this.lockTable.put("z","U");
+	private HashMap<Transacao,HashMap<DataItem,String>> lockTable = new HashMap<Transacao,HashMap<DataItem, String>>();
+	
+	public String getLock(DataItem item) {
+		for (Entry<Transacao, HashMap<DataItem, String>> entry : this.lockTable.entrySet()) {
+			if(entry.getValue().containsKey(item))
+				return entry.getValue().get(item);
+			
+		}
+		
+		return null;
 	}
 	
-	public String getLock(String item) {
-		return this.lockTable.get(item);
-	}
-	
-	public String addLock(String item, String lock) {
-		return this.lockTable.put(item, lock);
+	public String addLock(Transacao transaction, DataItem item, String lock) {
+		HashMap<DataItem,String> transactionLocks = this.lockTable.get(transaction);
+		return transactionLocks.put(item, lock);
 	}
 
 }
