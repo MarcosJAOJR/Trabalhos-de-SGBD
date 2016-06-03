@@ -5,15 +5,19 @@ import java.util.Scanner;
 import trabalho2.Evento;
 import trabalho2.Grafo;
 import trabalho2.Transacao;
+import trabalho3.Tr_Manager;
 
 public class Tela_Inicial {
 
 	public static void main(String[] args) {
 		
-		Grafo grafo = new Grafo();
-		Scanner reader = new Scanner(System.in);
+		// TRABALHO 2
+		// Grafo grafo = new Grafo();
+		// Scanner reader = new Scanner(System.in);
 		
-		telaInicial(grafo, reader);
+		// telaInicial(grafo, reader);
+		
+		Tr_Manager transactionManager = new Tr_Manager();
 
 	}
 	
