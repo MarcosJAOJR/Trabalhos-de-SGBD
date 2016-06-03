@@ -2,12 +2,17 @@ package trabalho2;
 
 public class Transacao {
 	
+	int TS;
 	String nome;
 	EstadosEnum estadoAtual;
 	
 	public Transacao(int i) {
 		this.nome = "T"+i;
 		estadoAtual = EstadosEnum.TR_Iniciada;
+	}
+	
+	public int getTimeStamp() {
+		return this.TS;
 	}
 	
 	@Override
