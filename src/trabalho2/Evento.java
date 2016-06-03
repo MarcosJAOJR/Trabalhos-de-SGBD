@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 public abstract class Evento {
 	
-	public static void TR_Begin(Grafo grafo) {
+	public static void TR_Begin(Grafo grafo, int timestamp) {
 		
-		Transacao newTransacao = new Transacao(grafo.transacoes.size());
+		Transacao newTransacao = new Transacao(grafo.transacoes.size(), timestamp);
 		
 		grafo.adicionaTransacao(newTransacao);
 		

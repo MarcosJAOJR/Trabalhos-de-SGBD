@@ -13,16 +13,18 @@ public class Tela_Inicial {
 		
 		// TRABALHO 2
 		// Grafo grafo = new Grafo();
-		// Scanner reader = new Scanner(System.in);
-		
+		// Scanner reader = new Scanner(System.in);		
 		// telaInicial(grafo, reader);
 		
+		// TRABALHO 3
 		Tr_Manager transactionManager = new Tr_Manager();
+		transactionManager.init("BT(1)r1(x)BT(2)w2(x)r2(y)r1(y)C(1)r2(z)C(2)");
+		
 
 	}
 	
 	public static void telaInicial(Grafo grafo, Scanner reader){
-		Transacao transacao = new Transacao(0);
+		Transacao transacao = new Transacao(0, 0);
 		System.out.println("\n---------------------------");
 		System.out.println("Escolha a opção desejada:\n"
 				+ "1 - TR_Begin\n"
@@ -48,7 +50,7 @@ public class Tela_Inicial {
 		
 		switch(n){
 			case 1:
-				Evento.TR_Begin(grafo);
+				Evento.TR_Begin(grafo, 0);
 				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 2:

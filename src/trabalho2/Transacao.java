@@ -6,12 +6,13 @@ public class Transacao {
 	String nome;
 	EstadosEnum estadoAtual;
 	
-	public Transacao(int i) {
+	public Transacao(int i, int timestamp) {
 		this.nome = "T"+i;
+		this.TS = timestamp;
 		estadoAtual = EstadosEnum.TR_Iniciada;
 	}
 	
-	public int getTimeStamp() {
+	public int getTimestamp() {
 		return this.TS;
 	}
 	
