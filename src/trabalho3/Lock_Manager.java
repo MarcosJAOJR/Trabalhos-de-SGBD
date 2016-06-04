@@ -14,7 +14,8 @@ public class Lock_Manager {
 				return true;
 			}			
 		}
-		// TODO: Adiciona na fila e suspende a transação		
+		D.pushQueue(Tr,"LS");
+		// TODO: Suspende a transação		
 		return false;
 	};
 	
@@ -23,11 +24,14 @@ public class Lock_Manager {
 			this.lockTable.addLock(Tr, D, "X");
 			return true;
 		}
-		// TODO: Adiciona na fila e suspende a transação
+		D.pushQueue(Tr,"LX");
+		// TODO: Suspende a transação
 		return false;		
 	};
 	
 	public void U(Transacao Tr, DataItem D) {
-		
+		if(D.isLocked()) {
+			this.lockTable.removeLock(Tr, D);			
+		}
 	};
 }

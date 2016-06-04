@@ -66,11 +66,13 @@ public class Tr_Manager {
 	public void read(Transacao transaction, DataItem d) {
 		lockManager.LS(transaction, d);
 		Evento.READ(grafo, transaction);
+		lockManager.U(transaction, d);
 	}
 	
 	public void write(Transacao transaction, DataItem d) {
 		lockManager.LX(transaction, d);
 		Evento.WRITE(grafo, transaction);
+		lockManager.U(transaction, d);
 	}
 	
 }

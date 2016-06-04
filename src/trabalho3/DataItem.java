@@ -1,30 +1,30 @@
 package trabalho3;
 
+import trabalho2.Transacao;
+
 public class DataItem {
 	
 	public String id;
 	public String label;
-	public Wait_Q waitQ;
 	
-	private String lockKind;
+	private Wait_Q waitQ;
+	private String lockKind = "";
 	private int currentLockingTr = 0;
 	
 	DataItem(String pLabel) {
 		this.label = pLabel;
 	}
 	
-	public boolean pushQueue(Object item) {
-		// TODO: Use queue mehod to push a new item to the queue
+	public boolean pushQueue(Transacao newTransaction, String lockType) {
+		this.waitQ.add(newTransaction, lockType);
 		return true;
 	}
 	
-	public Object removeQueue() {
-		// TODO: Should return the item in the queue
-		
-		return true;
+	public Wait_Q_Item getNextTransaction() {
+		return this.waitQ.remove();
 	}
 	
-	public void addLock(String pLockKind) {
+	public void lock(String pLockKind) {
 		this.lockKind = pLockKind;
 		this.currentLockingTr++; 
 	}
@@ -43,6 +43,10 @@ public class DataItem {
 	
 	public boolean isQueueEmpty() {
 		return this.waitQ.isEmpty();
+	}
+	
+	public boolean isLocked() {
+		return this.lockKind != "";
 	}
 	
 	public boolean isExclusivelyLock() {
