@@ -24,5 +24,9 @@ public class Wait_Q {
 	public Wait_Q_Item remove() {
 		return this.queue.removeFirst();
 	}
+	
+	public boolean isEmpty() {
+		return this.queue.isEmpty();
+	}
 
 }

@@ -15,6 +15,7 @@ public class Tr_Manager {
 	
 	private int TS = 0;
 	private Grafo grafo = new Grafo();
+	private Lock_Manager lockManager = new Lock_Manager();
 	
 	public void init(String operations) {
 		
@@ -63,12 +64,12 @@ public class Tr_Manager {
 	}
 	
 	public void read(Transacao transaction, DataItem d) {
-		Lock_Manager.LS(transaction, d);
+		lockManager.LS(transaction, d);
 		Evento.READ(grafo, transaction);
 	}
 	
 	public void write(Transacao transaction, DataItem d) {
-		Lock_Manager.LX(transaction, d);
+		lockManager.LX(transaction, d);
 		Evento.WRITE(grafo, transaction);
 	}
 	

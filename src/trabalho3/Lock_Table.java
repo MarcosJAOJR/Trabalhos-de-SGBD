@@ -20,8 +20,9 @@ public class Lock_Table {
 	}
 	
 	public String addLock(Transacao transaction, DataItem item, String lock) {
-		HashMap<DataItem,String> transactionLocks = this.lockTable.get(transaction);
-		return transactionLocks.put(item, lock);
+		HashMap<DataItem,String> transactionsItensLocked = this.lockTable.get(transaction);
+		item.addLock(lock);
+		return transactionsItensLocked.put(item, lock);
 	}
 
 }

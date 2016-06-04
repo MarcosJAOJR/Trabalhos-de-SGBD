@@ -2,14 +2,15 @@ package trabalho3;
 
 public class DataItem {
 	
-	public String label;
 	public String id;
-	public Object value;
+	public String label;
 	public Wait_Q waitQ;
 	
-	DataItem(String pLabel, Object pValue) {
+	private String lockKind;
+	private int currentLockingTr = 0;
+	
+	DataItem(String pLabel) {
 		this.label = pLabel;
-		this.value = pValue;
 	}
 	
 	public boolean pushQueue(Object item) {
@@ -21,5 +22,34 @@ public class DataItem {
 		// TODO: Should return the item in the queue
 		
 		return true;
+	}
+	
+	public void addLock(String pLockKind) {
+		this.lockKind = pLockKind;
+		this.currentLockingTr++; 
+	}
+	
+	public void unlock() {
+		this.lockKind = "";
+		this.currentLockingTr--;
+		if(!isQueueEmpty()){
+			// TODO: Chama proximo bloqueio [T,LS]
+		}
+	}
+	
+	public int getCurrentLockingTr() {
+		return this.currentLockingTr;
+	}
+	
+	public boolean isQueueEmpty() {
+		return this.waitQ.isEmpty();
+	}
+	
+	public boolean isExclusivelyLock() {
+		return this.lockKind == "X";
+	}
+	
+	public boolean isSharedLock() {
+		return this.lockKind == "S";
 	}
 }
