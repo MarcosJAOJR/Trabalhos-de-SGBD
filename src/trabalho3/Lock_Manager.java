@@ -38,7 +38,9 @@ public class Lock_Manager {
 	public void U(Transacao Tr, String itemId) {
 		DataItem D = getDataItem(itemId);
 		if(D.isLocked()) {
-			this.lockTable.removeLock(Tr, D);			
+			this.lockTable.removeLock(Tr, D);
+			if(D.getCurrentLockingTr() == 0)
+				activeItens.remove(itemId);
 		}
 	};
 	
