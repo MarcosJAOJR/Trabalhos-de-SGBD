@@ -1,18 +1,15 @@
 package trabalho3;
 
-import trabalho2.Transacao;
-
 public class Operation {
 	
 	private String kind;
-	private Transacao transaction;
-	private DataItem item;
+	private int transaction;
+	private String item;
 	
-	public Operation() {
-	}
-	
-	public Operation(String pKind) {
+	public Operation(String pKind, int pTransactionl, String pItem) {
 		this.kind = pKind;
+		this.transaction = pTransactionl;
+		this.item = pItem;
 	}
 	
 	public String getKind() {
@@ -23,19 +20,19 @@ public class Operation {
 		this.kind = pKind;
 	}
 	
-	public Transacao getTransaction() {
+	public int getTransaction() {
 		return this.transaction;
 	}
 	
-	public void setTransaction(Transacao pTransacao) {
+	public void setTransaction(int pTransacao) {
 		this.transaction = pTransacao;
 	}
 	
-	public DataItem getItem() {
+	public String getItem() {
 		return this.item;
 	}
 	
-	public void setItem(DataItem pItem) {
+	public void setItem(String pItem) {
 		this.item = pItem;
 	}
 

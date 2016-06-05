@@ -50,7 +50,7 @@ public class Tela_Inicial {
 		
 		switch(n){
 			case 1:
-				Evento.TR_Begin(grafo, 0);
+				Evento.TR_Begin(grafo, grafo.transacoes.size(), 0);
 				grafo.imprimeTudo();
 				telaInicial(grafo, reader);
 			case 2:

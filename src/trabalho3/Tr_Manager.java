@@ -35,7 +35,7 @@ public class Tr_Manager {
 		for (Operation operation : operations) {
 			switch (operation.getKind()) {
 			case TIPO_OPERACAO_BEGIN:
-				beginTransaction();
+				beginTransaction(operation.getTransaction());
 				break;
 			case TIPO_OPERACAO_COMMIT:
 				commit(operation.getTransaction());
@@ -53,26 +53,41 @@ public class Tr_Manager {
 		}
 	}
 	
-	public void beginTransaction() {
-		Evento.TR_Begin(grafo, getTS());
+	public void beginTransaction(int transactionId) {
+		Evento.TR_Begin(grafo, transactionId, getTS());
 	}
 	
-	public void commit(Transacao transaction) {
-		// TODO: Remover todo tipo de bloqueio que essa transação tenha
-		Evento.TR_Terminate(grafo, transaction);
-		Evento.TR_Commit(grafo, transaction);
+	public void commit(int transactionId) {
+		if(grafo.transacoes.get(transactionId) != null) {
+			Transacao transaction = grafo.transacoes.get(transactionId);
+			// TODO: Remover todo tipo de bloqueio que essa transação tenha
+			Evento.TR_Terminate(grafo, transaction);
+			Evento.TR_Commit(grafo, transaction);
+		}
+		else
+			System.out.println("Transação inválida");
+		}
+	
+	public void read(int transactionId, String itemId) {
+		if(grafo.transacoes.get(transactionId) != null) {
+			Transacao transaction = grafo.transacoes.get(transactionId);
+			lockManager.LS(transaction, itemId);
+			Evento.READ(grafo, transaction);
+			lockManager.U(transaction, itemId);
+		}
+		else
+			System.out.println("Transação inválida");
 	}
 	
-	public void read(Transacao transaction, DataItem d) {
-		lockManager.LS(transaction, d);
-		Evento.READ(grafo, transaction);
-		lockManager.U(transaction, d);
-	}
-	
-	public void write(Transacao transaction, DataItem d) {
-		lockManager.LX(transaction, d);
-		Evento.WRITE(grafo, transaction);
-		lockManager.U(transaction, d);
+	public void write(int transactionId, String itemId) {
+		if(grafo.transacoes.get(transactionId) != null) {
+			Transacao transaction = grafo.transacoes.get(transactionId); 
+			lockManager.LX(transaction, itemId);
+			Evento.WRITE(grafo, transaction);
+			lockManager.U(transaction, itemId);
+		}
+		else
+			System.out.println("Transação inválida");
 	}
 	
 }

@@ -14,6 +14,9 @@ public class Lock_Table {
 	}
 	
 	public String addLock(Transacao transaction, DataItem item, String lock) {
+		if(this.lockTable.get(transaction) == null)
+			this.lockTable.put(transaction, new HashMap<DataItem, String>());
+			
 		HashMap<DataItem,String> transactionsItensLocked = this.lockTable.get(transaction);
 		item.lock(lock);
 		return transactionsItensLocked.put(item, lock);

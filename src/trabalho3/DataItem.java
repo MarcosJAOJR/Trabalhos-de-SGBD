@@ -7,12 +7,12 @@ public class DataItem {
 	public String id;
 	public String label;
 	
-	private Wait_Q waitQ;
+	private Wait_Q waitQ = new Wait_Q();
 	private String lockKind = "";
 	private int currentLockingTr = 0;
 	
-	DataItem(String pLabel) {
-		this.label = pLabel;
+	DataItem(String pId) {
+		this.id = pId;
 	}
 	
 	public boolean pushQueue(Transacao newTransaction, String lockType) {

@@ -1,12 +1,12 @@
 package trabalho2;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Grafo {
 	
 	public No noRaiz;
-	public ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+	public HashMap<Integer, Transacao> transacoes = new HashMap<Integer, Transacao>();
 	
 	public Grafo() {
 		this.noRaiz = new No(EstadosEnum.TR_Iniciada);
@@ -14,7 +14,7 @@ public class Grafo {
 	
 	public void adicionaTransacao(Transacao newTransacao) {
 		
-		this.transacoes.add(newTransacao);
+		this.transacoes.put(newTransacao.id, newTransacao);
 		
 	}
 	

@@ -3,10 +3,12 @@ package trabalho2;
 public class Transacao {
 	
 	int TS;
+	int id;
 	String nome;
 	EstadosEnum estadoAtual;
 	
 	public Transacao(int i, int timestamp) {
+		this.id = i;
 		this.nome = "T"+i;
 		this.TS = timestamp;
 		estadoAtual = EstadosEnum.TR_Iniciada;

@@ -1,13 +1,18 @@
 package trabalho3;
 
+import java.util.HashMap;
+
 import trabalho2.Transacao;
 
 public class Lock_Manager {
 	
+	private HashMap<String, DataItem> activeItens = new HashMap<String, DataItem>();
+	
 	// This class will manager the Lock_Table
 	private Lock_Table lockTable = new Lock_Table();	
 	
-	public boolean LS(Transacao Tr, DataItem D) {
+	public boolean LS(Transacao Tr, String itemId) {
+		DataItem D = getDataItem(itemId);
 		if (D.isQueueEmpty()) {
 			if(!D.isExclusivelyLock()) {
 				lockTable.addLock(Tr, D, "S");
@@ -15,11 +20,12 @@ public class Lock_Manager {
 			}			
 		}
 		D.pushQueue(Tr,"LS");
-		// TODO: Suspende a transação		
+		// TODO: Suspende a transação
 		return false;
 	};
 	
-	public boolean LX(Transacao Tr, DataItem D) {
+	public boolean LX(Transacao Tr, String itemId) {
+		DataItem D = getDataItem(itemId);
 		if (D.isQueueEmpty()) {
 			this.lockTable.addLock(Tr, D, "X");
 			return true;
@@ -29,9 +35,19 @@ public class Lock_Manager {
 		return false;		
 	};
 	
-	public void U(Transacao Tr, DataItem D) {
+	public void U(Transacao Tr, String itemId) {
+		DataItem D = getDataItem(itemId);
 		if(D.isLocked()) {
 			this.lockTable.removeLock(Tr, D);			
 		}
 	};
+	
+	public DataItem getDataItem(String itemId) {
+		
+		if(activeItens.get(itemId) == null)
+			activeItens.put(itemId, new DataItem(itemId));
+			
+		return activeItens.get(itemId); 
+		
+	}
 }
