@@ -38,13 +38,13 @@ public class Tr_Manager {
 				beginTransaction();
 				break;
 			case TIPO_OPERACAO_COMMIT:
-				
+				commit(operation.getTransaction());
 				break;
 			case TIPO_OPERACAO_WRITE:
-				
+				write(operation.getTransaction(), operation.getItem());
 				break;
 			case TIPO_OPERACAO_READ:
-				
+				read(operation.getTransaction(), operation.getItem());
 				break;
 			default:
 				System.out.println("Operação inválida");
