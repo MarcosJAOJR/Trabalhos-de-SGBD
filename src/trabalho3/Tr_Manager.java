@@ -50,6 +50,8 @@ public class Tr_Manager {
 				System.out.println("Operação inválida");
 				break;
 			}
+			grafo.imprimeTudo();
+			System.out.println("-----------------------");
 		}
 	}
 	

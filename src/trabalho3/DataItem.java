@@ -32,9 +32,6 @@ public class DataItem {
 	public void unlock() {
 		this.lockKind = "";
 		this.currentLockingTr--;
-		if(!isQueueEmpty()){
-			// TODO: Chama proximo bloqueio [T,LS]
-		}
 	}
 	
 	public int getCurrentLockingTr() {

@@ -20,7 +20,6 @@ public class Transacao {
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
 		if(obj == null) return false;
 		Transacao o = (Transacao) obj; 
 		return this.nome.equals(o.nome);

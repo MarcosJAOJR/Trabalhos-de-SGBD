@@ -39,8 +39,14 @@ public class Lock_Manager {
 		DataItem D = getDataItem(itemId);
 		if(D.isLocked()) {
 			this.lockTable.removeLock(Tr, D);
-			if(D.getCurrentLockingTr() == 0)
-				activeItens.remove(itemId);
+			if(!D.isQueueEmpty()){
+				// Chama proximo bloqueio [T,LS]
+				Wait_Q_Item nextTrLock = D.getNextTransaction();
+				lockTable.addLock(nextTrLock.transaction, D, nextTrLock.lockType);
+			}
+			else
+				if(D.getCurrentLockingTr() == 0)
+					activeItens.remove(itemId);
 		}
 	};
 	
