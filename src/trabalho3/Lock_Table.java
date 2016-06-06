@@ -20,11 +20,13 @@ public class Lock_Table {
 			
 		HashMap<DataItem,String> transactionsItensLocked = this.lockTable.get(transaction);
 		item.lock(lock);
+		item.currentTimestamp = transaction.getTimestamp();
 		return transactionsItensLocked.put(item, lock);
 	}
 	
 	public String removeLock(Transacao transaction, DataItem item) {
 		item.unlock();
+		item.currentTimestamp = 0;
 		return this.getTransactionsLocksByItem(item).remove(item);
 	}
 	

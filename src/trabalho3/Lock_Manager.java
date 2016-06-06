@@ -21,6 +21,9 @@ public class Lock_Manager {
 				return true;
 			}			
 		}
+		// TODO: Só entra na fila se o timestamp de Tr for maior que o da transação bloqueante
+		// TODO: E se várias transações estiverem exercendo bloqueios compartilhados sobre o msm item?
+		
 		D.pushQueue(Tr,"LS");
 		// TODO: Suspende a transação
 		return false;
@@ -32,6 +35,8 @@ public class Lock_Manager {
 			this.lockTable.addLock(Tr, D, "X");
 			return true;
 		}
+		// TODO: Só entra na fila se o timestamp de Tr for maior que o da transação bloqueante
+		// TODO: E se várias transações estiverem exercendo bloqueios compartilhados sobre o msm item?
 		D.pushQueue(Tr,"LX");
 		// TODO: Suspende a transação
 		return false;		
@@ -44,7 +49,7 @@ public class Lock_Manager {
 			if(!D.isQueueEmpty()){
 				// Chama proximo bloqueio [T,LS]
 				Wait_Q_Item nextTrLock = D.getNextTransaction();
-				lockTable.addLock(nextTrLock.transaction, D, nextTrLock.lockType);
+				lockTable.addLock(nextTrLock.transaction, D, nextTrLock.lockType.substring(1));
 			}
 			else
 				if(D.getCurrentLockingTr() == 0)

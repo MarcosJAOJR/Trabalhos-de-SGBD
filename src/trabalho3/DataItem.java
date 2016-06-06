@@ -6,6 +6,7 @@ public class DataItem {
 	
 	public String id;
 	public String label;
+	public int currentTimestamp = 0;
 	
 	private Wait_Q waitQ = new Wait_Q();
 	private String lockKind = "";
@@ -30,8 +31,9 @@ public class DataItem {
 	}
 	
 	public void unlock() {
-		this.lockKind = "";
 		this.currentLockingTr--;
+		if(this.currentLockingTr == 0)
+			this.lockKind = "";
 	}
 	
 	public int getCurrentLockingTr() {

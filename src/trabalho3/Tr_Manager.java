@@ -93,4 +93,9 @@ public class Tr_Manager {
 			System.out.println("Transação inválida");
 	}
 	
+	public void rollback(Transacao transaction) {
+		Evento.TR_Rollback(grafo, transaction);
+		lockManager.unlockAll(transaction);
+	}
+	
 }
