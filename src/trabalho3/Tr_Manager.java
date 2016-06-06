@@ -63,6 +63,7 @@ public class Tr_Manager {
 		if(grafo.transacoes.get(transactionId) != null) {
 			Transacao transaction = grafo.transacoes.get(transactionId);
 			// TODO: Remover todo tipo de bloqueio que essa transação tenha
+			lockManager.unlockAll(transaction);
 			Evento.TR_Terminate(grafo, transaction);
 			Evento.TR_Commit(grafo, transaction);
 		}
@@ -75,7 +76,7 @@ public class Tr_Manager {
 			Transacao transaction = grafo.transacoes.get(transactionId);
 			lockManager.LS(transaction, itemId);
 			Evento.READ(grafo, transaction);
-			lockManager.U(transaction, itemId);
+			// lockManager.U(transaction, itemId);
 		}
 		else
 			System.out.println("Transação inválida");
@@ -86,7 +87,7 @@ public class Tr_Manager {
 			Transacao transaction = grafo.transacoes.get(transactionId); 
 			lockManager.LX(transaction, itemId);
 			Evento.WRITE(grafo, transaction);
-			lockManager.U(transaction, itemId);
+			// lockManager.U(transaction, itemId);
 		}
 		else
 			System.out.println("Transação inválida");

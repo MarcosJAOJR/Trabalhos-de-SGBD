@@ -1,6 +1,8 @@
 package trabalho3;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import trabalho2.Transacao;
 
@@ -26,7 +28,7 @@ public class Lock_Manager {
 	
 	public boolean LX(Transacao Tr, String itemId) {
 		DataItem D = getDataItem(itemId);
-		if (D.isQueueEmpty()) {
+		if (!D.isLocked() && D.isQueueEmpty()) {
 			this.lockTable.addLock(Tr, D, "X");
 			return true;
 		}
@@ -57,5 +59,13 @@ public class Lock_Manager {
 			
 		return activeItens.get(itemId); 
 		
-	}
+	};
+	
+	public void unlockAll(Transacao transaction) {
+		Set<Entry<DataItem, String>> listItens = lockTable.getAllLocksByTransaction(transaction);
+		while (listItens.iterator().hasNext()) {
+			Entry<DataItem, String> item = listItens.iterator().next();
+			U(transaction, item.getKey().id);
+		}
+	};
 }

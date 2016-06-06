@@ -2,6 +2,7 @@ package trabalho3;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import trabalho2.Transacao;
 
@@ -33,6 +34,10 @@ public class Lock_Table {
 				return entry.getValue();
 		
 		return null;
+	}
+	
+	public Set<Entry<DataItem,String>> getAllLocksByTransaction(Transacao transaction) {
+		return lockTable.get(transaction).entrySet();
 	}
 
 }
